@@ -73,7 +73,26 @@ socket.on('user-connected', (name) => {
   renderAnnouncement(`${name} joined the chat.`);
 });
 socket.on('online-users', (names)=>{
-  onlineUsers.innerHTML="Online Users: ["+names+"]";
+  
+  while (onlineUsers.firstChild) {
+      onlineUsers.removeChild(onlineUsers.firstChild);
+  }
+    for(var i=0; i<names.length; i++){
+      const userBox = document.createElement('div');
+      userBox.classList.add('user-box');
+      const pic=document.createElement('span');
+      const img=document.createElement('img');
+      img.src="images/pic2.jpg";
+      img.alt="picture";
+      
+      const user=document.createElement('span');
+      
+      user.textContent = names[i];
+      pic.appendChild(img);
+      userBox.appendChild(pic);
+      userBox.appendChild(user);
+      onlineUsers.appendChild(userBox);
+      }
 });
 
 socket.on('gone', (name) => {

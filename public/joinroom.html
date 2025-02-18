@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create or Join Room</title>
-  <link rel="stylesheet" href="style.css">
+  <title>ViEN</title>
+  <link rel="icon" href="favicon.png" type="image/png"/>
+  <link rel="stylesheet" href="createroom.css">
 </head>
 <body>
   <div class="room-container">
-    <h1>Welcome to Chat Application</h1>
-    <div>
-      <button id="create-room">Create Room</button>
-    </div>
-    <hr>
-    <div>
-      <input type="text" id="room-id" placeholder="Enter Room ID">
-      <button id="join-room">Join Room</button>
-    </div>
+      <img src="icon.png" height="40%" width="40%"/>
+      <div class="btn-section">
+        <div>
+          <button class="button" id="create-room" role="button"><span class="text">Create Room</span><span>Create Room</span></button>
+        </div>
+        
+        <div>
+          <button id="join-room" class="button" role="button"><span class="text">Join Room</span><span>Join Room</span></button>
+        </div>
+      </div>
+      <div style="height: 100px;">
+          <input type="text" id="room-id" class="join-room-label" placeholder="Enter Room ID"/>
+      </div>
   </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="createroom.js"></script>
