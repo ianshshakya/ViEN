@@ -190,10 +190,10 @@ body {
       height: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden; /* Prevents unwanted scrolling */
+      overflow: fit; /* Prevents unwanted scrolling */
   }
     .chat-app {
-      height: 100vh;
+      height: 80vh;
       width: 100vw;
       
       overflow: hidden;
