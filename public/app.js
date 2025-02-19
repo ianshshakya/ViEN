@@ -7,6 +7,21 @@ function getRandomBoldColor() {
   const color = `hsl(${hue}, 100%, 60%)`;
   return color;
 }
+function enterFullScreen() {
+  let doc = document.documentElement;
+  if (doc.requestFullscreen) {
+      doc.requestFullscreen();
+  } else if (doc.mozRequestFullScreen) { // Firefox
+      doc.mozRequestFullScreen();
+  } else if (doc.webkitRequestFullscreen) { // Chrome, Safari
+      doc.webkitRequestFullscreen();
+  } else if (doc.msRequestFullscreen) { // IE/Edge
+      doc.msRequestFullscreen();
+  }
+}
+document.addEventListener("DOMContentLoaded", function () {
+  enterFullScreen(); // Automatically enters full screen on load
+});
 
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-btn');

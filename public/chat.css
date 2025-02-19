@@ -193,7 +193,7 @@ body {
       overflow: fit; /* Prevents unwanted scrolling */
   }
     .chat-app {
-      height: 80vh;
+      height: 100vh;
       width: 100vw;
       
       overflow: hidden;
@@ -219,7 +219,7 @@ body {
   
     .chat-body {
       width: 100%;
-      height: 80%;
+      height: 92%;
       background-color: #ffffff;
     
     }
