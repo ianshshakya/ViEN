@@ -25,27 +25,19 @@ const onlineUsers = document.getElementById('online-users');
 function renderMessage(message,colour="white", position) {
   const messageElement = document.createElement('div');
   messageElement.textContent = message;
+  if(position=="right")
+  messageElement.classList.add('message-right');
+  else
+  messageElement.classList.add('message-left');
   messageElement.style.color=colour;
-  messageElement.style.textAlign = position;
-  messageElement.style.padding = '3px'; // Padding for better visibility
-  messageElement.style.margin = '3px'; // Add some margin
-  messageElement.style.borderRadius = '5px'; 
+  
   messagesContainer.appendChild(messageElement);
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 function renderAnnouncement(message) {
   const messageElement = document.createElement('div');
   messageElement.textContent = message;
-  
-  // Styling for announcement on black background
-  messageElement.style.color = '#808080';
-  messageElement.style.fontFamily = 'Arial, Helvetica, sans-serif'; // Clean font
-  messageElement.style.fontStyle = 'italic'; // Italic text
-  messageElement.style.padding = '3px'; // Padding for better visibility
-  messageElement.style.margin = '3px 0'; // Add some margin
-  messageElement.style.borderRadius = '5px'; // Slightly rounded corners
-  messageElement.style.textAlign = 'center'; // Center the text
-  messageElement.style.fontSize = '0.5em'; // Slightly larger text size
+  messageElement.classList.add('announcement');
   
   messagesContainer.appendChild(messageElement);
 }
@@ -60,7 +52,7 @@ renderAnnouncement("You Joined");
 sendButton.addEventListener('click', () => {
   const message = messageInput.value.trim();
   if (message) {
-    renderMessage(`You: ${message}`, color, "right");
+    renderMessage(`You: ${message}`, "skyblue", "right");
     socket.emit('chatMessage', { roomId, msg: message , color:color});
     messageInput.value = '';
   }
