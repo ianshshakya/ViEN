@@ -9,7 +9,7 @@ const io = socketIo(server);
 
 app.use(express.static('public'));
 
-const users = {}; // Store users by socket ID
+const users = {}; 
 const rooms = []; // Store all room IDs
 const roomPasswords = {}; // Map room IDs to their passwords
 const colors={};

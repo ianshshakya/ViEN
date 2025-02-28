@@ -10,7 +10,7 @@
 <body>
   <div class="chat-app">
     <div class="sidebar">
-      <div class="icon">
+      <div class="icon" onclick="enterFullScreen()">
         <img src="icon.png" alt="ViEN Chat"/>
       </div>
       <div class="online-users">
@@ -19,13 +19,18 @@
 
         </div>
       </div>
+      <button id="menu-btn" class="menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
     </div>
 
     <div class="chat-body">
       <div class="chat-head">
+        
         <span><img src="images/dogesh.jpg"/></span>
         <h3>Dogesh</h3>
         <div><i class="fa-solid fa-circle-info"></i></div>
+        
       </div>
       <div class="chat-container">
         <div id="messages" class="messages"></div>

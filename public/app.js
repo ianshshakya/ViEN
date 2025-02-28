@@ -1,12 +1,6 @@
 
 const socket = io();
 
-function getRandomBoldColor() {
-  
-  const hue = Math.floor(Math.random() * 360);
-  const color = `hsl(${hue}, 100%, 60%)`;
-  return color;
-}
 function enterFullScreen() {
   let doc = document.documentElement;
   if (doc.requestFullscreen) {
@@ -19,20 +13,47 @@ function enterFullScreen() {
       doc.msRequestFullscreen();
   }
 }
-document.addEventListener("DOMContentLoaded", function () {
-  enterFullScreen(); // Automatically enters full screen on load
-});
+
+
+
+  const onlineUsers = document.getElementById('online-users');
+  const menuBtn = document.getElementById("menu-btn");
+
+  menuBtn.addEventListener("click", function () {
+    onlineUsers.parentElement.classList.toggle("active");
+    if (onlineUsers.parentElement.classList.contains("active")) {
+      onlineUsers.parentElement.style.display = "block"; 
+      onlineUsers.parentElement.style.height = "500px";
+      onlineUsers.parentElement.style.width = "200px";
+    } else {
+      onlineUsers.parentElement.style.display = "none";
+    }
+  });
+  //element.classList.contains("class-name");
+      
+
+
+function getRandomBoldColor() {
+  
+  const hue = Math.floor(Math.random() * 360);
+  const color = `hsl(${hue}, 100%, 60%)`;
+  return color;
+}
+
+
+
 
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-btn');
 const messagesContainer = document.getElementById('messages');
-const onlineUsers = document.getElementById('online-users');
+
 
 
         messageInput.addEventListener('keypress', function (event) {
             if (event.key === 'Enter') {
                 event.preventDefault(); // Prevent form submission if inside a form
                 sendButton.click(); // Simulate button click
+                
             }
         });
 
@@ -59,6 +80,7 @@ function renderAnnouncement(message) {
 
 const roomId = new URLSearchParams(window.location.search).get('room');
 const naam = prompt("What is your name?");
+
 const color=getRandomBoldColor();
 socket.emit('new-user', { name: naam, roomId , color:color });
 renderAnnouncement("You Joined");

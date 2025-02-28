@@ -183,6 +183,9 @@ body {
   #send-btn:hover {
     background-color: #0056b3;
   }
+  .menu-btn{
+      display: none;
+  }
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
@@ -202,17 +205,43 @@ body {
   
     .sidebar {
       display: flex;
-      width: 100%;
+      flex-direction: row;
+      width: 90%;
       height: 8%;
       align-items: normal;
       justify-content: space-around;
     }
     .online-users{
+      position: absolute;
+      top: 0;
+      left:0;
       display: none;
+      transition: height 1s ease-out;
+      background-color: #fbfbfb;
+      border-radius: 10px;
+      height: 0;
+      width: 0;
+    }
+    .online-users.active{
+      
+      display: block !important;
+      height: 500px !important;
+      width: 200px !important;
+    
+    }
+    
+    .menu-btn{
+      height: 50px;
+      width:50px;
+      border-radius: 10px;
+      background-color: white;
+      margin-left: 30%;
+      display: block;
+      color: rgb(21, 20, 20);
     }
     .icon{
      
-      
+      margin-right: 30%;
       width: 20%;
 
     }
