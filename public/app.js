@@ -204,7 +204,7 @@ const roomId = new URLSearchParams(window.location.search).get('room');
   
   return naam;
 }
-
+const color = getRandomBoldColor();
 // Usage:
 (async function initChat() {
   try {
@@ -215,7 +215,7 @@ const roomId = new URLSearchParams(window.location.search).get('room');
       return;
     }
 
-    const color = getRandomBoldColor();
+    
     const roomId = new URLSearchParams(window.location.search).get('room');
     
     socket.emit('new-user', { name: naam, roomId, color: color });
@@ -241,6 +241,7 @@ const roomId = new URLSearchParams(window.location.search).get('room');
 
 
   sendButton.addEventListener('click', () => {
+    
     const message = messageInput.value.trim();
     if (message) {
       renderMessage(message, "skyblue", "right");
