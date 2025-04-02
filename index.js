@@ -12,8 +12,7 @@ app.use(express.static('public'));
 const users = {}; 
 const rooms = []; // Store all room IDs
 const roomPasswords = {}; // Map room IDs to their passwords
-const colors={};
-
+const colors = {};
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/joinroom.html');
@@ -40,18 +39,18 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('new-user', ({ name, roomId, color}) => {
-    users[socket.id] = { name, roomId, color};
-    const namesArray = Object.values(users).map(item => item.name);
+  socket.on('new-user', ({ name, roomId, color }) => {
+    users[socket.id] = { name, roomId, color };
+    const namesArray = Object.values(users)
+      .filter(user => user.roomId === roomId)
+      .map(user => user.name);
+    
     socket.join(roomId);
-   
     socket.to(roomId).emit('user-connected', name);
-    
     io.to(roomId).emit('online-users', namesArray);
-    
   });
   
-  socket.on('chatMessage', ({ roomId, msg , color}) => {
+  socket.on('chatMessage', ({ roomId, msg, color }) => {
     const user = users[socket.id];
     if (user && user.roomId === roomId) {
       socket.to(roomId).emit('chatMessage', {
@@ -61,15 +60,21 @@ io.on('connection', (socket) => {
       });
     }
   });
+
   socket.on('disconnect', () => {
-    
     const user = users[socket.id];
     if (user) {
-      io.to(user.roomId).emit('gone', user.name);
+      const { roomId, name } = user;
+      io.to(roomId).emit('gone', name);
       delete users[socket.id];
+      
+      // Get updated list of users in the same room
+      const namesArray = Object.values(users)
+        .filter(u => u.roomId === roomId)
+        .map(u => u.name);
+      
+      io.to(roomId).emit('online-users', namesArray);
     }
-    const namesArray = Object.values(users).map(item => item.name);
-    socket.emit('online-users', namesArray);
   });
 });
 
