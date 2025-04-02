@@ -1,6 +1,34 @@
 
 const socket = io();
 
+
+// Fix mobile viewport height
+function updateVH() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// Initial update
+updateVH();
+
+// Update on resize or orientation change
+window.addEventListener('resize', updateVH);
+window.addEventListener('orientationchange', updateVH);
+
+
+// Prevent address bar from hiding/changing height
+window.scrollTo(0, 1);
+let lastWindowHeight = window.innerHeight;
+
+function checkResize() {
+  if (lastWindowHeight !== window.innerHeight) {
+    window.scrollTo(0, 1);
+    lastWindowHeight = window.innerHeight;
+  }
+}
+
+window.addEventListener('resize', checkResize);
+
 function enterFullScreen() {
   let doc = document.documentElement;
   if (doc.requestFullscreen) {
@@ -54,6 +82,7 @@ messageInput.addEventListener('keypress', function (event) {
   if (event.key === 'Enter') {
     event.preventDefault(); // Prevent form submission if inside a form
     const message = messageInput.value.trim();
+    const color= getRandomBoldColor();
     if (message) {
       renderMessage(message, "skyblue", "right");
       socket.emit('chatMessage', { roomId, msg: message, color: color });

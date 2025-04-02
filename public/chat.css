@@ -1,3 +1,11 @@
+:root {
+  --vh: 1vh; /* Fallback */
+}
+
+.chat-container {
+  height: calc(100 * var(--vh));
+}
+
 /* Chatroom Header Styles */
 .chatroom-header {
   height: 3.5em; 
@@ -573,4 +581,54 @@ body {
    /* WhatsApp chat background */
   background-image: url('whatsapp-bg.png'); /* Optional: WhatsApp pattern */
   background-size: contain;
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 768px) {
+  body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: fixed; /* Prevents elastic scrolling */
+  }
+  
+  .room-container, 
+  .chat-container {
+    height: 100vh;
+    height: -webkit-fill-available; /* For mobile browsers */
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #messages {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding-bottom: 60px; /* Space for input */
+  }
+  
+  .input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  }
+  
+  /* Fix for iOS notch */
+  @supports (padding: max(0px)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    .input-container {
+      padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    }
+  }
 }
